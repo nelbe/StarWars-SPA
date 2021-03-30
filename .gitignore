@@ -1,0 +1,22 @@
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# dependencies
+/node_modules
+
+# next.js build output
+.next
+
+# production
+/build
+
+# don't commit the npm lockfile because i use Yarn
+package-lock.json
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Editors
+.idea
+__MACOSX
