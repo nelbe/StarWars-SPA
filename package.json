@@ -3,16 +3,22 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "dev": "next",
-    "build": "next build",
-    "start": "next start"
+    "dev": "next ./src",
+    "build": "next build ./src",
+    "start": "next start ./src"
   },
   "license": "ISC",
   "dependencies": {
     "next": "^10.1.2",
+    "postcss-import": "^14.0.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2"
   },
   "repository": "https://github.com/nelbe/StarWars-SPA.git",
-  "author": "Belen Dominguez <b.dominguez@cathedralsw.com>"
+  "author": "Belen Dominguez <b.dominguez@cathedralsw.com>",
+  "devDependencies": {
+    "autoprefixer": "*",
+    "postcss": "*",
+    "tailwindcss": "^2.0.4"
+  }
 }
