@@ -3,22 +3,29 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "dev": "next ./src",
-    "build": "next build ./src",
-    "start": "next start ./src"
+    "build:css": "postcss src/styles/tailwind.css -o src/styles.css",
+    "dev": "yarn build:css && next ./src",
+    "build": "yarn build:css && next build ./src",
+    "start": "yarn build:css && next start ./src"
   },
   "license": "ISC",
   "dependencies": {
+    "gsap": "^3.6.1",
     "next": "^10.1.2",
+    "next-react-svg": "^1.1.2",
     "postcss-import": "^14.0.0",
+    "postcss-loader": "^5.2.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2"
   },
   "repository": "https://github.com/nelbe/StarWars-SPA.git",
   "author": "Belen Dominguez <b.dominguez@cathedralsw.com>",
   "devDependencies": {
-    "autoprefixer": "*",
+    "@fullhuman/postcss-purgecss": "^4.0.3",
+    "autoprefixer": "^10.2.5",
     "postcss": "*",
+    "postcss-cli": "^8.3.1",
+    "postcss-preset-env": "^6.7.0",
     "tailwindcss": "^2.0.4"
   }
 }
