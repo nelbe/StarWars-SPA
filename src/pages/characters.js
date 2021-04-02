@@ -16,28 +16,17 @@ function Characters() {
       const response = await fetch(url);
       let data = await response.json();
 
-      // let characters = data.results;
-
       let temp_characters = characters;
-
       data.results.map(result => {
         temp_characters.push(result);
       });
 
+      //Set the characters
       setCharacters(temp_characters);
+
+      //Set the value of next to know when no more items can be requested
       setNext(data.next)
 
-      // If another page exists, merge it into the array
-      // Else return the complete array of paginated output
-      // if (data.next) {
-      //   let temp_data = await getStaticProps(data.next); 
-      //   // data = data.add(temp_data);
-      //   // data = [...data, ...temp_data];
-      //   temp_data.results.map(result => {
-      //     characters.push(result);
-      //     console.log(result);
-      //   })
-      // }
       return temp_characters;
     } catch (err) {
       return console.error(err);
@@ -46,11 +35,7 @@ function Characters() {
 
   const getMoreCharacters = () => {
     if (next !== null) {
-      console.log(next);
       fetchRequest(next);
-      
-      // setCharacters(temp_characters);
-      
     }
   }
 
