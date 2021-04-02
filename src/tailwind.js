@@ -3,6 +3,10 @@ module.exports = {
   important: false,
   separator: ':',
   theme: {
+    images: {
+      stars: "url('/src/assets/img/background.jpeg')",
+      bgCard: "url(https://static-mh.content.disney.io/starwars/assets/shared/bg_hash_top-dca2c5ab1b2e.png)",
+    },
     screens: {
       sm: '640px',
       md: '768px',
@@ -11,7 +15,6 @@ module.exports = {
     },
     colors: {
       transparent: 'transparent',
-
       black: '#000',
       white: '#fff',
       darkblue: '#051C2C',
@@ -30,6 +33,7 @@ module.exports = {
       },
       red: {
         100: '#fff5f5',
+        150: '#9e4f60',
         200: '#fed7d7',
         300: '#feb2b2',
         400: '#fc8181',
@@ -127,6 +131,9 @@ module.exports = {
         800: '#97266d',
         900: '#702459',
       },
+      white: {
+        100: '#ddd'
+      }
     },
     spacing: {
       px: '1px',
@@ -152,6 +159,7 @@ module.exports = {
       '64': '16rem',
     },
     backgroundColor: theme => theme('colors'),
+    backgroundImage: theme => theme('images'),
     backgroundPosition: {
       bottom: 'bottom',
       center: 'center',
@@ -167,6 +175,7 @@ module.exports = {
       auto: 'auto',
       cover: 'cover',
       contain: 'contain',
+      '7': '0.438rem'
     },
     borderColor: theme => ({
       ...theme('colors'),

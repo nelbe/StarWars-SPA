@@ -49,26 +49,32 @@ function Characters() {
   const getCharacters = () => {
     return (
       <>
-      <div className="flex flex-wrap">
+      <div className="flex flex-wrap text-white-100">
       {
         characters ? 
         characters.map((character, key) => (
-          <div className="w-full sm:w-1/2 md:w-1/3 lg:w-1/3 p-5"><Card character={character} key={key} goToDetails={goToDetails} /></div>
+          <div className="w-full sm:w-1/2 md:w-1/3 lg:w-1/3 p-5">
+            <Card character={character} key={key} goToDetails={goToDetails} />
+          </div>
         ))
         :
         null
       }
     </div>
-    <button onClick={() => getMoreCharacters()}>See more</button>
     </>
     )
   }
   
   return (
-    <>
-      <div className="pl-5 pt-5">Start Wars Characters</div>
-      <div>{getCharacters()}</div>
-    </>  
+    <div className="bg-stars">
+      <div className="bg-black sm:m-5 md:m-10 lg:m-20 pt-2">
+        <div className="pl-6 pt-2 pb-2 border-t-2 border-b-2 border-gray-500 bg-black text-white-100 text-lg tracking-wider uppercase">Start Wars Characters</div>
+        {getCharacters()}
+        <div className="w-full justify-center items-center flex pt-5 pb-5 border-t-2 border-gray-500">
+          <div className="text-gray-600 text-lg tracking-wider uppercase cursor-pointer hover:text-white-100 hover:underline" onClick={() => getMoreCharacters()}>Load more</div>
+        </div>
+      </div>
+    </div>  
   )
 }
 
