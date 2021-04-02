@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { Card } from "../component/card";
-import background from "../assets/img/background.jpg";
 
 function Characters() {
   const [characters, setCharacters] = useState([]);
@@ -61,18 +60,24 @@ function Characters() {
         :
         null
       }
-    </div>
+      </div>
     </>
     )
   }
-  
+ 
   return (
-    <div className="w-full bg-stars h-screen sm:p-5 md:p-10 lg:p-20">
+    <div className="w-full bg-stars min-h-full h-full sm:p-5 md:p-10 lg:p-20">
       <div className="bg-black">
-        <div className="pl-6 pt-2 pb-2 border-t-2 border-b-2 border-gray-500 bg-black text-white-100 text-lg tracking-wider uppercase">Start Wars Characters</div>
+        <div className="pl-6 pt-2 pb-2 border-t-2 border-b-2 border-gray-500 bg-black text-white-100 text-lg tracking-wider uppercase">Star Wars Characters</div>
         {getCharacters()}
         <div className="w-full justify-center items-center flex pt-5 pb-5 border-t-2 border-gray-500">
-          <div className="text-gray-600 text-lg tracking-wider uppercase cursor-pointer hover:text-white-100 hover:underline" onClick={() => getMoreCharacters()}>Load more</div>
+          {
+            next !== null && next !== undefined
+            ?  
+            <div className="disable text-gray-600 text-lg tracking-wider uppercase cursor-pointer hover:text-white-100 hover:underline" onClick={() => getMoreCharacters()}>Load more</div>
+            :
+            ""
+          }
         </div>
       </div>
     </div>  
