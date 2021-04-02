@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Card } from "../component/card";
+import background from "../assets/img/background.jpg";
 
 function Characters() {
   const [characters, setCharacters] = useState([]);
@@ -52,9 +53,9 @@ function Characters() {
       <div className="flex flex-wrap text-white-100">
       {
         characters ? 
-        characters.map((character, key) => (
-          <div className="w-full sm:w-1/2 md:w-1/3 lg:w-1/3 p-5">
-            <Card character={character} key={key} goToDetails={goToDetails} />
+        characters.map((character, i) => (
+          <div key={i} className="w-full sm:w-1/2 md:w-1/3 lg:w-1/3 p-5">
+            <Card character={character} goToDetails={goToDetails} />
           </div>
         ))
         :
@@ -66,8 +67,8 @@ function Characters() {
   }
   
   return (
-    <div className="bg-stars">
-      <div className="bg-black sm:m-5 md:m-10 lg:m-20 pt-2">
+    <div className="w-full bg-stars h-screen sm:p-5 md:p-10 lg:p-20">
+      <div className="bg-black">
         <div className="pl-6 pt-2 pb-2 border-t-2 border-b-2 border-gray-500 bg-black text-white-100 text-lg tracking-wider uppercase">Start Wars Characters</div>
         {getCharacters()}
         <div className="w-full justify-center items-center flex pt-5 pb-5 border-t-2 border-gray-500">

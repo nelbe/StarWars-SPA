@@ -4,7 +4,7 @@ module.exports = {
   separator: ':',
   theme: {
     images: {
-      stars: "url('/src/assets/img/background.jpeg')",
+      stars: "url('./assets/img/background.jpg')",
       bgCard: "url(https://static-mh.content.disney.io/starwars/assets/shared/bg_hash_top-dca2c5ab1b2e.png)",
     },
     screens: {
@@ -159,7 +159,10 @@ module.exports = {
       '64': '16rem',
     },
     backgroundColor: theme => theme('colors'),
-    backgroundImage: theme => theme('images'),
+    backgroundImage: {
+      'stars': "url('https://static-mh.content.disney.io/starwars/assets/navigation/navigation_stars-c6452e016c73.jpg')",
+      'bgCard': "url(https://static-mh.content.disney.io/starwars/assets/shared/bg_hash_top-dca2c5ab1b2e.png)",
+    },
     backgroundPosition: {
       bottom: 'bottom',
       center: 'center',
