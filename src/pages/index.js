@@ -26,7 +26,7 @@ function Index() {
     };
 
     return (
-      <div className="bg-black w-full h-screen relatve">
+      <div className="bg-stars w-full h-screen relatve">
         <div className="left-2/4 opacity-0 absolute transform scale-50 top-2/4 z-200 items-center flex justify-center w-72" ref={title}>
           <Logo />
         </div>
