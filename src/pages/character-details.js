@@ -23,9 +23,9 @@ function CharactersDetails() {
         </>
         )
     }
-    console.log(character);
+
     return (
-        <div className="w-full bg-stars min-h-full h-full p-5 sm:p-5 md:p-10 lg:p-20">
+        <div className="w-full bg-stars min-h-full h-auto p-5 sm:p-5 md:p-10 lg:p-20">
             <div className="ml-5 text-gray-600 text-lg tracking-wider uppercase cursor-pointer hover:text-white-100 hover:underline" onClick={() => Router.back()}>Back to main list</div>
             {
             character ? 

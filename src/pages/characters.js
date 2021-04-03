@@ -66,7 +66,7 @@ function Characters() {
   }
  
   return (
-    <div className="w-full bg-stars min-h-full h-full sm:p-5 md:p-10 lg:p-20">
+    <div className="w-full bg-stars min-h-full h-auto sm:p-5 md:p-10 lg:p-20">
       <div className="bg-black">
         <div className="pl-6 pt-2 pb-2 border-t-2 border-b-2 border-gray-500 bg-black text-white-100 text-lg tracking-wider uppercase">Star Wars Characters</div>
         {getCharacters()}
