@@ -1,37 +1,60 @@
 import React, { useEffect, useState } from "react";
 import { Card } from "../component/card";
+import Error from "./_error";
 
 function Characters() {
   const [characters, setCharacters] = useState([]);
   const [next, setNext] = useState();
+  const [errorCode, setErrorCode] = useState(false);
   const url = "https://swapi.dev/api/people/";
 
   useEffect(() => {
     fetchRequest(url);
   }, []);
 
-  async function fetchRequest(url) {
-    try {
-      // Fetch request and parse as JSON
-      const response = await fetch(url);
-      let data = await response.json();
+  async function fetchRequest (url)  {
+    await fetch(url)
+    .then( async response => {
+      let data = null;
+      if (response.ok) {
+        data = await response.json();
+        
+        let temp_characters = characters;
+        data.results.map(result => {
+          temp_characters.push(result);
+        });
 
-      let temp_characters = characters;
-      data.results.map(result => {
-        temp_characters.push(result);
+        //Set the characters
+        setCharacters(temp_characters);
+
+        //Set the value of next to know when no more items can be requested
+        setNext(data.next)
+
+        return temp_characters;
+
+      // Handle and set errors
+      } else if(response.status === 404) {
+        setErrorCode({
+          status: response.status,
+          message: response.statusText !== '' ? response.statusText : 'Not found'
+        });
+        return response.status;
+      } else {
+        setErrorCode({
+          status: response.status,
+          message: response.statusText !== '' ? response.statusText : 'Some other error',
+        });
+        return response.status;
+      }
+    })
+    .catch(error => {
+      setErrorCode({
+        status: 500,
+        message: error ? error : 'Internal Server Error'
       });
-
-      //Set the characters
-      setCharacters(temp_characters);
-
-      //Set the value of next to know when no more items can be requested
-      setNext(data.next)
-
-      return temp_characters;
-    } catch (err) {
-      return console.error(err);
-    }
-  }
+      return error;
+    });
+  };
 
   const getMoreCharacters = () => {
     if (next !== null) {
@@ -64,24 +87,28 @@ function Characters() {
     </>
     )
   }
- 
-  return (
-    <div className="w-full bg-stars min-h-full h-auto sm:p-5 md:p-10 lg:p-20">
-      <div className="bg-black">
-        <div className="pl-6 pt-2 pb-2 border-t-2 border-b-2 border-gray-500 bg-black text-white-100 text-lg tracking-wider uppercase">Star Wars Characters</div>
-        {getCharacters()}
-        <div className="w-full justify-center items-center flex pt-5 pb-5 border-t-2 border-gray-500">
-          {
-            next !== null && next !== undefined
-            ?  
-            <div className="disable text-gray-600 text-lg tracking-wider uppercase cursor-pointer hover:text-white-100 hover:underline" onClick={() => getMoreCharacters()}>Load more</div>
-            :
-            ""
-          }
+  
+  if (errorCode) {
+    return <Error statusCode={errorCode} />
+  } else {
+    return (
+      <div className="w-full bg-stars min-h-full h-auto sm:p-5 md:p-10 lg:p-20">
+        <div className="bg-black">
+          <div className="pl-6 pt-2 pb-2 border-t-2 border-b-2 border-gray-500 bg-black text-white-100 text-lg tracking-wider uppercase">Star Wars Characters</div>
+          {getCharacters()}
+          <div className="w-full justify-center items-center flex pt-5 pb-5 border-t-2 border-gray-500">
+            {
+              next !== null && next !== undefined
+              ?  
+              <div className="disable text-gray-600 text-lg tracking-wider uppercase cursor-pointer hover:text-white-100 hover:underline" onClick={() => getMoreCharacters()}>Load more</div>
+              :
+              ""
+            }
+          </div>
         </div>
-      </div>
-    </div>  
-  )
+      </div>  
+    )
+  }  
 }
 
 // // This function gets called at build time

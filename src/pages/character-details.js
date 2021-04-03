@@ -48,6 +48,7 @@ function CharactersDetails() {
                     </div>
                 </div>    
             : null
+            // window.location = '/characters' // mirar
             }
         </div>
     )
