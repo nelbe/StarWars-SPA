@@ -6,6 +6,9 @@
 # next.js build output
 .next
 
+# testing
+/coverage
+
 # production
 /build
 
