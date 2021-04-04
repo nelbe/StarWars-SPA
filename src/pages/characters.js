@@ -1,13 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { Card } from "../component/card";
+import { apiFetch } from "../helpers/apiFetch";
 import Error from "./_error";
 
 function Characters() {
   const [characters, setCharacters] = useState([]);
   const [next, setNext] = useState();
   const [errorCode, setErrorCode] = useState(false);
+  const { data  } = apiFetch("people/");
   const url = "https://swapi.dev/api/people/";
-
+console.log(data);
   useEffect(() => {
     fetchRequest(url);
   }, []);
