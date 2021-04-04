@@ -15,7 +15,7 @@ function CharactersDetails() {
             <ol className="text-white-100 list-disc list-inside">
                 {character && character.films.length  ? 
                     character.films.map((film, i) => (
-                        <li className="mb-2" id={i}>{film}</li>
+                        <li className="mb-2" key={i} id={i}>{film}</li>
                     ))
                 :  null
             }
@@ -48,7 +48,6 @@ function CharactersDetails() {
                     </div>
                 </div>    
             : null
-            // window.location = '/characters' // mirar
             }
         </div>
     )

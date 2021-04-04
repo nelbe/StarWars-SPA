@@ -15,10 +15,8 @@ function Index() {
         duration: 1
       })
         .set(title.current, { opacity: 1, scale: 2.75, delay: 0.3 })
-        // .to(title.current, { scale: 0.05, ease: "Power2.easeOut", duration: 3 })
         .to(title.current, { scale: 0.05, ease: "Power2.easeOut", duration: 3, onComplete: goToNextPage })
         .to(title.current, { opacity: 0, duration: 1.5 }, "-=1.5")
-        // .to(content.current, { top: "-170%", duration: 50 })
     }, []);
     
     const goToNextPage = () => {

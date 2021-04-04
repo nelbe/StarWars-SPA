@@ -66,7 +66,7 @@ function Characters() {
     //Save the selected character in sessionStorage and redirect to character-details page
     e.stopPropagation();
     sessionStorage.setItem("character", JSON.stringify(character));
-    window.location = `/character-details?name=${character.name}`;
+    window.location = `/characterDetails?name=${character.name}`;
   }
 
   const getCharacters = () => {
@@ -110,40 +110,5 @@ function Characters() {
     )
   }  
 }
-
-// // This function gets called at build time
-// export async function getStaticProps(url) {
-//   // Call an external API endpoint to get characters
-//   // const res = await fetch("https://swapi.dev/api/people/");
-//   // const characters = await res.json();
-
-//   // return {
-//   //   props: {
-//   //       characters,
-//   //   },
-//   // }
-
-//   try {
-//     // Fetch request and parse as JSON
-//     const response = await fetch(url);
-//     let characters = await response.json();
-
-//     // If another page exists, merge it into the array
-//     // Else return the complete array of paginated output
-//     if (next) {
-//       let temp_data = await getStaticProps(next_page); 
-//       characters = characters.concat(temp_data);
-//     }
-
-//     // return data;
-//     return {
-//       props: {
-//           characters,
-//       },
-//     }
-//   } catch (err) {
-//     return console.error(err);
-//   }
-// }
 
 export default Characters;
