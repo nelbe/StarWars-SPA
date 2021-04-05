@@ -1,28 +1,32 @@
 
 import React, { useState, useEffect } from "react";
+import { getFilm } from '../apiFetch';
 import Router from 'next/router'
 
 function CharactersDetails() {
     const [character, setCharacter] = useState();
-    
+    const [films, setFilms] = useState([]);
+    const [errorCode, setErrorCode] = useState(false);
+
     useEffect(() => {
-        setCharacter(JSON.parse(sessionStorage.getItem('character')));
+        const temp_character = JSON.parse(sessionStorage.getItem('character'));
+        setCharacter(temp_character);
+        if (films.length === 0) {
+            temp_character.films.map(film => {
+                fetchFilms(film);
+            }); 
+        }
     }, []);
 
-    const getFilms = () => {
-        return (
-            <>
-            <ol className="text-white-100 list-disc list-inside">
-                {character && character.films.length  ? 
-                    character.films.map((film, i) => (
-                        <li className="mb-2" key={i} id={i}>{film}</li>
-                    ))
-                :  null
-            }
-            </ol>
-        </>
-        )
-    }
+    const fetchFilms = (url) => {
+        getFilm(url)
+          .then((response) => {
+            let temp_films = films;
+            temp_films.push(response.data);
+            setFilms(temp_fimls);
+          })
+          .catch((error) => setErrorCode(error));
+    };
 
     return (
         <div className="w-full bg-stars min-h-full h-auto p-5 sm:p-5 md:p-10 lg:p-20">
@@ -44,7 +48,20 @@ function CharactersDetails() {
                     </div>
                     <div className="m-5 mb-5 border-b-2 border-gray-500">
                         <div className="text-2xl mb-2 text-yellow-350">{character.films.length === 1 ? `${character.films.length} Film` : `${character.films.length} Films`}</div>
-                        <div className="pb-5">{getFilms()}</div>
+                        <div className="pb-5">
+                            <ol className="text-white-100 list-none">
+                                {
+                                films.map((film, i) => (
+                                    <li className="mb-2" key={i} id={i}>
+                                        <div className="flex">
+                                            <span className="text-red-150 mr-2">Title: </span>{film.title}
+                                            <span className="text-red-150 mx-2 ml-5">Release date: </span>{film.release_date}
+                                        </div>
+                                    </li>
+                                ))
+                            }
+                            </ol>
+                        </div>
                     </div>
                 </div>    
             : null
@@ -54,5 +71,4 @@ function CharactersDetails() {
 }
   
 export default CharactersDetails;
-
 

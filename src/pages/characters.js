@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Card } from "../component/card";
+import { getCharacter } from '../apiFetch';
 import Error from "./_error";
 
 function Characters() {
@@ -9,56 +10,35 @@ function Characters() {
   const url = "https://swapi.dev/api/people/";
 
   useEffect(() => {
-    fetchRequest(url);
+    fetchCharacters(url);
   }, []);
 
-  async function fetchRequest (url)  {
-    await fetch(url)
-    .then( async response => {
-      let data = null;
-      if (response.ok) {
-        data = await response.json();
-        
+  const fetchCharacters = (url) => {
+    getCharacter(url)
+      .then((response) => {
         let temp_characters = characters;
-        data.results.map(result => {
+        response.data.results.map(result => {
           temp_characters.push(result);
         });
-
+        
         //Set the characters
         setCharacters(temp_characters);
 
         //Set the value of next to know when no more items can be requested
-        setNext(data.next)
+        setNext(response.data.next);
 
-        return temp_characters;
-
-      // Handle and set errors
-      } else if(response.status === 404) {
-        setErrorCode({
-          status: response.status,
-          message: response.statusText !== '' ? response.statusText : 'Not found'
+      })
+      .catch((error) => {
+          setErrorCode({
+          status: error.response.status,
+          message: error.response.statusText
         });
-        return response.status;
-      } else {
-        setErrorCode({
-          status: response.status,
-          message: response.statusText !== '' ? response.statusText : 'Some other error',
-        });
-        return response.status;
-      }
-    })
-    .catch(error => {
-      setErrorCode({
-        status: 500,
-        message: error ? error : 'Internal Server Error'
       });
-      return error;
-    });
   };
 
   const getMoreCharacters = () => {
     if (next !== null) {
-      fetchRequest(next);
+      fetchCharacters(next);
     }
   }
 
@@ -68,25 +48,6 @@ function Characters() {
     sessionStorage.setItem("character", JSON.stringify(character));
     window.location = `/characterDetails?name=${character.name}`;
   }
-
-  const getCharacters = () => {
-    return (
-      <>
-      <div className="flex flex-wrap text-white-100">
-      {
-        characters ? 
-        characters.map((character, i) => (
-          <div key={i} className="w-full sm:w-1/2 md:w-1/3 lg:w-1/3 p-5">
-            <Card character={character} goToDetails={goToDetails} />
-          </div>
-        ))
-        :
-        null
-      }
-      </div>
-    </>
-    )
-  }
   
   if (errorCode) {
     return <Error statusCode={errorCode} />
@@ -95,7 +56,18 @@ function Characters() {
       <div className="w-full bg-stars min-h-full h-auto sm:p-5 md:p-10 lg:p-20">
         <div className="bg-black">
           <div className="pl-6 pt-2 pb-2 border-t-2 border-b-2 border-gray-500 bg-black text-white-100 text-lg tracking-wider uppercase">Star Wars Characters</div>
-          {getCharacters()}
+            <div className="flex flex-wrap text-white-100">
+              {
+                characters ? 
+                characters.map((character, i) => (
+                  <div key={i} className="w-full sm:w-1/2 md:w-1/3 lg:w-1/3 p-5">
+                    <Card character={character} goToDetails={goToDetails} />
+                  </div>
+                ))
+                :
+                null
+              }
+            </div>
           <div className="w-full justify-center items-center flex pt-5 pb-5 border-t-2 border-gray-500">
             {
               next !== null && next !== undefined
