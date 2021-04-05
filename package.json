@@ -5,8 +5,8 @@
   "scripts": {
     "build:css": "postcss src/styles/tailwind.css -o src/styles.css",
     "dev": "yarn build:css && next ./src",
-    "build": "yarn build:css && next build ./src",
-    "start": "yarn build:css && next start ./src",
+    "build": "yarn build:css && next ./src",
+    "start": "yarn build:css && next ./src",
     "test": "jest"
   },
   "license": "ISC",
